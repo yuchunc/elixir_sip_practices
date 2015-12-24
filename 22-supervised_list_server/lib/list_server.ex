@@ -2,8 +2,8 @@ defmodule ListServer do
   use GenServer
 
   ### Public API
-  def start_link do
-    GenServer.start_link(__MODULE__, [], name: :list)
+  def start_link(list_data_pid) do
+    GenServer.start_link(__MODULE__, [], list_data_pid)
   end
 
   def clear do
@@ -27,7 +27,8 @@ defmodule ListServer do
   end
   ### GenServer API
   def init(list) do
-    {:ok, list}
+    list = ListData.get_state(list_data_pid)
+    {:ok, { list, list_data_pid }}
   end
 
   def handle_call :items, _from, list do
