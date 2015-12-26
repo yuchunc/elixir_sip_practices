@@ -7,7 +7,7 @@ defmodule ListData do
   end
 
   def save_state(pid, state) do
-    GenServer.cast pid, {:save_sate, state}
+    GenServer.cast pid, {:save_state, state}
   end
 
   def get_state(pid) do
