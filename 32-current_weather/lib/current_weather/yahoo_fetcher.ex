@@ -13,7 +13,8 @@ defmodule CurrentWeather.YahooFetcher do
   defp extract_temperature(body) do
     { xml, _rest } = :xmerl_scan.string(to_char_list(body))
     [ condition ] = :xmerl_xpath.string('/rss/channel/item/yweather:condition/@temp', xml)
-    condition
+    {_, _, _, _, _, _, _, _, temp, _} = condition
+    temp
   end
 
   defp get(woeid) do
